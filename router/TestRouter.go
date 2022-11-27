@@ -1,14 +1,14 @@
 package router
 
-import "boboshu/Test"
+import "boboshu/test"
 
 func init() {
 	testGroup := Engine.Group("/test")
 	{
-		testGroup.GET("/mongo/insertOne", Test.InsetOne)
-		testGroup.GET("/mongo/insertMany", Test.InsertMany)
-		testGroup.GET("/mongo/updateOne", Test.UpdateOne)
-		testGroup.GET("/mongo/findOne", Test.FindOne)
-		testGroup.GET("/mongo/deleteOne", Test.DeleteOne)
+		testGroup.GET("/mongo/insertOne", test.InsetOne)
+		testGroup.GET("/mongo/insertMany", test.InsertMany)
+		testGroup.GET("/mongo/updateOne", test.UpdateOne)
+		testGroup.GET("/mongo/findOne", test.FindOne)
+		testGroup.GET("/mongo/deleteOne", test.DeleteOne)
 	}
 }
