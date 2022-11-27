@@ -7,5 +7,6 @@ func init() {
 	{
 		testGroup.GET("/mongo/insertOne", Test.InsetOne)
 		testGroup.GET("/mongo/insertMany", Test.InsertMany)
+
 	}
 }
