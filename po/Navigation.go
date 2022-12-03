@@ -1,13 +1,24 @@
 package po
 
-import "gorm.io/gorm"
-
 type Navigation struct {
-	gorm.Model
-	NavigationName string `gorm:"unique"`
-	UserId         string
+	ID              int
+	NavigationName  string
+	NavigationOrder int
+	Categorys       []Category
 }
 
-func (n Navigation) TableName() string {
+type TNavigation struct {
+	ID              int `gorm:"primarykey"`
+	NavigationName  string
+	NavigationOrder int
+	UserId          string
+}
+
+func (n TNavigation) TableName() string {
 	return "t_navigation"
+}
+
+type CNavigations struct {
+	UserId      int
+	Navigations []Navigation
 }

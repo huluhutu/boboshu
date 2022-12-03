@@ -1,6 +1,12 @@
 package dto
 
 type UserDto struct {
-	Username string
-	Password string
+	UserId      int
+	Username    string
+	NickName    string
+	Header      string
+	FavoriteNum int
+	SubcribeNum int
+	Blogurl     string
+	Token       string
 }

@@ -10,5 +10,6 @@ func init() {
 		testGroup.GET("/mongo/updateOne", test.UpdateOne)
 		testGroup.GET("/mongo/findOne", test.FindOne)
 		testGroup.GET("/mongo/deleteOne", test.DeleteOne)
+		testGroup.POST("/upLoadImage", test.UpLoadFormImage)
 	}
 }

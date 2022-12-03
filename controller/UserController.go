@@ -1,25 +1,21 @@
 package controller
 
 import (
-	"boboshu/config"
 	"boboshu/dto"
+	"boboshu/po"
 	"boboshu/service"
 	"boboshu/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"time"
 )
 
 func Login(ctx *gin.Context) {
 	username := ctx.PostForm("username")
 	password := ctx.PostForm("password")
-	login := service.UserLogin(username, password)
+	login, userDto := service.UserLogin(username, password)
 	if login {
-		token, _ := util.GenerateToken(username, time.Second*24*7*60*60)
-		rdb := config.GetRedisConnect()
-		rdb.Set(username, token, time.Second*24*7*60*60)
 		ctx.JSON(http.StatusOK, &dto.Result{
-			Code: http.StatusOK, Message: "login success", ResBody: token,
+			Code: http.StatusOK, Message: "login success", ResBody: userDto,
 		})
 	} else {
 		ctx.JSON(http.StatusNotFound, &dto.Result{
@@ -29,10 +25,13 @@ func Login(ctx *gin.Context) {
 }
 
 func Register(ctx *gin.Context) {
-	username := ctx.PostForm("username")
-	password := ctx.PostForm("password")
-	email := ctx.PostForm("email")
-	register := service.UserRegister(username, password, email)
+	var user po.TUser
+	user.Username = ctx.PostForm("username")
+	user.Password = ctx.PostForm("password")
+	user.Email = ctx.PostForm("email")
+	user.Nickname = ctx.PostForm("nickname")
+	user.Header = util.UpLoadHeaderAndReturnKey(ctx)
+	register := service.UserRegister(&user)
 	if register {
 		ctx.JSON(http.StatusOK, &dto.Result{
 			Code: http.StatusOK, Message: "register success",
@@ -46,8 +45,8 @@ func Register(ctx *gin.Context) {
 
 func GetUser(ctx *gin.Context) {
 	username := ctx.GetHeader("username")
-	user := service.GetUserByUserName(username)
+	userDto := service.GetUserByUserName(username)
 	ctx.JSON(http.StatusOK, &dto.Result{
-		Code: http.StatusOK, Message: "user information", ResBody: user,
+		Code: http.StatusOK, Message: "user information", ResBody: userDto,
 	})
 }

@@ -3,6 +3,7 @@ package router
 import (
 	"boboshu/controller"
 	"boboshu/middleware"
+	"boboshu/test"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,8 +16,10 @@ func GetEngine() *gin.Engine {
 func init() {
 	userGroup := Engine.Group("/user")
 	{
-		userGroup.POST("/login", controller.Login)
-		userGroup.POST("/register", controller.Register)
+		userGroup.POST("/signin", controller.Login)
+		userGroup.POST("/signup", controller.Register)
+		userGroup.POST("/upload", test.UpLoadFormImage)
+		//userGroup.POST("/signout")
 	}
 	warkgroup := Engine.Group("/worktable")
 	{

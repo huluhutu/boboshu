@@ -1,30 +1,29 @@
 package po
 
 import (
-	"gorm.io/gorm"
+	"time"
 )
 
-type User struct {
-	gorm.Model
-	Username string `gorm:"unique"`
-	Password string
-	Email    string
+type TUser struct {
+	Id           int `gorm:"primarykey;autoIncrement"`
+	Username     string
+	Password     string
+	Email        string
+	Nickname     string
+	Header       string
+	Status       int
+	CreateTime   time.Time
+	BlogUrl      string
+	FavoriteNum  int //articleId
+	SubscribeNum int // userId
 }
 
-func (u User) TableName() string {
+func (u TUser) TableName() string {
 	return "t_user"
 }
 
-type UserRelative struct {
-	gorm.Model
-	UserId      uint   `gorm:"unique"`
-	FavoriteIds string `gorm:"unique"`
-	Subscribes  string `gorm:"unique"`
-	ArticleNum  int
-	Header      string
-	NickName    string
-}
-
-func (r UserRelative) TableName() string {
-	return "t_user_relative"
+type CUserRelative struct {
+	UserId     int
+	Favorites  *[]int //articleId
+	Subscribes *[]int // userId
 }

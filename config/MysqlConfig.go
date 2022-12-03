@@ -1,7 +1,6 @@
 package config
 
 import (
-	"boboshu/po"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -34,11 +33,6 @@ func init() {
 	set.SetMaxIdleConns(maxIdleConnect)
 	set.SetConnMaxIdleTime(maxIdleTime)
 	DB = db
-
-	err = db.AutoMigrate(&po.User{}, &po.UserRelative{}, &po.Navigation{}, &po.Category{}, &po.Article{})
-	if err != nil {
-		log.Println(err)
-	}
 }
 
 func GetConnectToMysql() *gorm.DB {

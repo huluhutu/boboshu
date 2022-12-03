@@ -1,15 +1,18 @@
 package po
 
-import "gorm.io/gorm"
-
-type Category struct {
-	gorm.Model
-	CategoryName string `gorm:"unique"`
-	UserId       uint   `gorm:"unique"`
-	NavigationId uint   `gorm:"unique"`
-	ArticleNum   int
+type TCategory struct {
+	ID            int `gorm:"primarykey"`
+	CategoryName  string
+	CategoryOrder int
+	UserId        uint
 }
 
-func (c Category) TableName() string {
+func (c TCategory) TableName() string {
 	return "t_category"
+}
+
+type Category struct {
+	CategoryID   int
+	CategoryName string
+	Articles     []Article
 }
